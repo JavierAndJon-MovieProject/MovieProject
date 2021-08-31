@@ -18,18 +18,35 @@ $(window).on('load', function () {
 });
 
 //movies list get request
+$('.delete').click(() => {
+    $.delete(MOVIES_URL)
+})
+fetch(MOVIES_URL, {
+    method: 'DELETE'
+})
+
 const movieList = $.get(MOVIES_URL).done(response =>
-    response.forEach(function(movie){
-        console.log(movie)
-        $('#card1').append(`<ul> <li> ${movie.title} </li> </ul>`)
+    response.forEach((movie) =>{
+        $('.delete').click(() => {
+            $.delete(MOVIES_URL, movie.id)
+        })
+        $('#card1').append(`<ul> <li>
+${movie.title}  ${movie.rating} 
+<button class="delete">Delete</button>
+</li> </ul>`)
     })
 );
 movieList
 //button functionality
+// function updateDiv()
+// {
+//     $( "#card1").load(window.location.href + " #card1" );
+// }
 $('#addButton').click(function(e){
     let addMovie = $('#addedMovie').val()
     console.log(addMovie)
     e.preventDefault()
-    $.post(MOVIES_URL, {title:addMovie, rating: '1'})
+    let appendingMovie = addMovie.split(',')
+    $.post(MOVIES_URL, {title:appendingMovie[0], rating: appendingMovie[1]})
         .done()
 })
