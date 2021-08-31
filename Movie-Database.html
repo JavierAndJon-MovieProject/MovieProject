@@ -7,20 +7,22 @@
 
 </head>
 <body>
-<main>
-<h1>I don't know what I'm doing.!?</h1>
+<main class="container d-flex">
+    <p id="loading">Loading</p>
+<div id="card1">
 
-<div id=" card1">
-    <ol >
-
-    </ol>
 </div>
-
+    <div>
+    <form action="">
+        <input id="addedMovie" type="text" placeholder="Movie name, rating">
+        <input id="addButton" type="submit" >
+    </form>
+    </div>
 </main>
-<script src="js/fetchFile.js"></script>
 <script src="js/jQuerey.js"></script>
+<script src="js/fetchFile.js"></script>
 <script>
-    $.get(MOVIES_URL).done(console.log)
+
 
 </script>
 </body>
