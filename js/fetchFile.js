@@ -50,3 +50,14 @@ $('#addButton').click(function(e){
     $.post(MOVIES_URL, {title:appendingMovie[0], rating: appendingMovie[1]})
         .done()
 })
+
+// fetch('MOVIES_URL/movies/{id}', {
+//     method: 'PUT'
+//     body: {
+//         title: titleFromUser
+//         rating: ratingFromUser
+//     }
+// })
+
+
+
