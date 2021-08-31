@@ -1,14 +1,14 @@
 "use strict";
 
-const option = {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    },
+// const option = {
+//     method: 'GET',
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
     // body : JSON.stringify({
     //
     // })
-};
+// };
 
 const MOVIES_URL = "https://oasis-roasted-indigo.glitch.me/movies"
 
@@ -21,9 +21,9 @@ $(window).on('load', function () {
 $('.delete').click(() => {
     $.delete(MOVIES_URL)
 })
-fetch(MOVIES_URL, {
-    method: 'DELETE'
-})
+// fetch(MOVIES_URL, {
+//     method: 'DELETE'
+// })
 
 const movieList = $.get(MOVIES_URL).done(response =>
     response.forEach((movie) =>{
@@ -31,12 +31,11 @@ const movieList = $.get(MOVIES_URL).done(response =>
             $.delete(MOVIES_URL, movie.id)
         })
         $('#card1').append(`<ul> <li>
-${movie.title}  ${movie.rating} 
+${movie.id} ${movie.title}  ${movie.rating} 
 <button class="delete">Delete</button>
 </li> </ul>`)
     })
 );
-movieList
 //button functionality
 // function updateDiv()
 // {
@@ -50,14 +49,39 @@ $('#addButton').click(function(e){
     $.post(MOVIES_URL, {title:appendingMovie[0], rating: appendingMovie[1]})
         .done()
 })
+$('#editMovie').click((e) => {
+    e.preventDefault()
+    let idChanger = $('#idMovie').val()
+    let newerMovie = $('#newMovie').val()
+    let newerRating = $('#newRating').val()
+    console.log(newerMovie)
+    console.log(newerRating)
+    fetch("https://oasis-roasted-indigo.glitch.me/movies/" + idChanger,{
+        method: 'PUT',
+        body: {
+            title: 'newerMovie',
+            rating: 'newerRating'
+        }
+    })
+})
+// const changeMovie = movie => fetch(`${MOVIES_URL}/${movie.id}`, {
+//     method: 'PUT',
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(movie)
+// })
+//     .then(res => res.json())
+//     .then(data => {
+//         console.log(`Success: edited ${JSON.stringify(data)}`);
+//     })
+//     .catch(console.error);
 
-// fetch('MOVIES_URL/movies/{id}', {
+// fetch('DOMAIN_NAME/movies/{id}', {
 //     method: 'PUT'
 //     body: {
 //         title: titleFromUser
 //         rating: ratingFromUser
 //     }
 // })
-
-
 

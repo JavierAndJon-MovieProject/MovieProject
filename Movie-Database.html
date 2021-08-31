@@ -19,8 +19,15 @@
     </form>
     </div>
     <div>
-        <textarea id="editMovie"  placeholder="Movie title">
-    </textarea>
+        <form class="d-flex row" action="">
+            <label for="idMovie">ID for the movie</label>
+            <input id="idMovie" type="text">
+            <label class="col-12" for="newMovie">Enter Movie you wish to edit</label>
+            <input class="" id="newMovie" type="text">
+            <label class="col-12" for="newRating">New rating for the Movie</label>
+            <input id="newRating" type="text">
+            <input id="editMovie" type="submit">
+        </form>
     </div>
 </main>
 <script src="js/jQuerey.js"></script>
