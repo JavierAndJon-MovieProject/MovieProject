@@ -12,19 +12,20 @@
 <div id="card1">
 
 </div>
-    <div>
+    <div class="d-flex">
     <form action="">
-        <input id="addedMovie" type="text" placeholder="Movie name, rating">
-        <input id="addButton" type="submit" >
+        <label class="text-center" for="addedMovie">Add your favorite movie!</label>
+        <input class="text-center float-right" id="addedMovie" type="text" placeholder="Movie name, rating">
+        <input class="float-right" id="addButton" type="submit" >
     </form>
     </div>
     <div>
-        <form class="d-flex row" action="">
-            <label for="idMovie">ID for the movie</label>
+        <form class="d-flex row justify-content-end" action="">
+            <label class="col-12 text-right" for="idMovie">ID for the movie</label>
             <input id="idMovie" type="text">
-            <label class="col-12" for="newMovie">Enter Movie you wish to edit</label>
+            <label class="col-12 text-right" for="newMovie">Enter Movie you wish to edit</label>
             <input class="" id="newMovie" type="text">
-            <label class="col-12" for="newRating">New rating for the Movie</label>
+            <label class="col-12 text-right" for="newRating">New rating for the Movie</label>
             <input id="newRating" type="text">
             <input id="editMovie" type="submit">
         </form>
