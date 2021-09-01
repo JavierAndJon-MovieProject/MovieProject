@@ -11,7 +11,7 @@
 // };
 
 const MOVIES_URL = "https://oasis-roasted-indigo.glitch.me/movies"
-
+let database = $(".card1")
     // <!--    initial page loading message-->
 $(window).on('load', function () {
     $('#loading').hide();
@@ -49,7 +49,7 @@ $('#addButton').click(function(e){
     e.preventDefault()
     let appendingMovie = addMovie.split(',')
     $.post(MOVIES_URL, {title:appendingMovie[0], rating: appendingMovie[1]})
-        .done()
+        database.remove()
 });
 
 //editing a movie button
