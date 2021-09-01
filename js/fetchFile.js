@@ -1,14 +1,14 @@
 "use strict";
 
-const option = {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    },
+// const option = {
+//     method: 'GET',
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
     // body : JSON.stringify({
     //
     // })
-};
+// };
 
 const MOVIES_URL = "https://oasis-roasted-indigo.glitch.me/movies"
 
@@ -17,31 +17,29 @@ $(window).on('load', function () {
     $('#loading').hide();
 });
 
-//movies list get request
+
 $('.delete').click(() => {
-    $.delete(MOVIES_URL)
-})
-fetch(MOVIES_URL, {
-    method: 'DELETE'
+    deleteMovie()
+
 })
 
+//movies list get request
 const movieList = $.get(MOVIES_URL).done(response =>
     response.forEach((movie) =>{
-        $('.delete').click(() => {
-            $.delete(MOVIES_URL, movie.id)
-        })
         $('#card1').append(`<ul> <li>
-${movie.title}  ${movie.rating} 
+${movie.id}
+${movie.title} 
+${movie.rating}
 <button class="delete">Delete</button>
 </li> </ul>`)
     })
 );
-movieList
 //button functionality
 // function updateDiv()
 // {
 //     $( "#card1").load(window.location.href + " #card1" );
 // }
+//adding a movie button
 $('#addButton').click(function(e){
     let addMovie = $('#addedMovie').val()
     console.log(addMovie)
@@ -49,15 +47,52 @@ $('#addButton').click(function(e){
     let appendingMovie = addMovie.split(',')
     $.post(MOVIES_URL, {title:appendingMovie[0], rating: appendingMovie[1]})
         .done()
-})
+});
 
-// fetch('MOVIES_URL/movies/{id}', {
-//     method: 'PUT'
-//     body: {
-//         title: titleFromUser
-//         rating: ratingFromUser
-//     }
+//editing a movie button
+$('#editMovie').click((e) => {
+    e.preventDefault()
+    let idChanger = $('#idMovie').val()
+    let newerMovie = $('#newMovie').val()
+    let newerRating = $('#newRating').val()
+    fetch("https://oasis-roasted-indigo.glitch.me/movies/" + idChanger,{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:
+            JSON.stringify({
+                title: newerMovie,
+                rating: newerRating
+            })
+    }).then(res => res.json())
+        .catch(console.error)
+})
+// failed attempt
+//     const changeMovie = movie => fetch(`${MOVIES_URL}/${movie.id}`, {
+//         method: 'PUT',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({
+//         title rating
+//         )
+//     })
+//         .then(res => res.json())
+//         .then(data => {
+//             console.log(`Success: edited ${JSON.stringify(data)}`);
+//         })
+//         .catch(console.error);
 // })
 
-
-
+const deleteMovie = id => fetch(`${MOVIES_URL}/${id}`, {
+    method: 'DELETE',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+    .then(res => res.json())
+    .then(() => {
+        console.log(`Success: Deleted movie with the id of ${id}`);
+    })
+    .catch(console.error);
