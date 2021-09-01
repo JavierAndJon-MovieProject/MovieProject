@@ -23,20 +23,24 @@ $(window).on('load', function () {
 // })
 
 //movies list get request
-const movieList = $.get(MOVIES_URL).done(response => {
-    response.forEach((movie) => {
-        $('#card1').append(`<ul> <li>
+const movieList = () => {
+    $.get(MOVIES_URL).done(response => {
+        $("#card1").html('')
+        response.forEach((movie) => {
+            $('#card1').append(`<ul> <li>
 ${movie.id}
 ${movie.title} 
 ${movie.rating}
 <button class="delete" data-id="${movie.id}">Delete</button>
 </li> </ul>`)
-    })
-    $('.delete').click(function() {
-        let idMovie = $(this).attr('data-id')
-       deleteMovie(idMovie)
-    })
-});
+        })
+        $('.delete').click(function () {
+            let idMovie = $(this).attr('data-id')
+            deleteMovie(idMovie)
+        })
+    });
+}
+movieList()
 //button functionality
 // function updateDiv()
 // {
@@ -49,7 +53,7 @@ $('#addButton').click(function(e){
     e.preventDefault()
     let appendingMovie = addMovie.split(',')
     $.post(MOVIES_URL, {title:appendingMovie[0], rating: appendingMovie[1]})
-        database.remove()
+        movieList()
 });
 
 //editing a movie button
@@ -69,6 +73,7 @@ $('#editMovie').click((e) => {
                 rating: newerRating
             })
     }).then(res => res.json())
+        .then(movieList())
         .catch(console.error)
 })
 // failed attempt
@@ -97,5 +102,6 @@ const deleteMovie = id => fetch(`${MOVIES_URL}/${id}`, {
     .then(res => res.json())
     .then(() => {
         console.log(`Success: Deleted movie with the id of ${id}`);
+        movieList()
     })
     .catch(console.error);
